@@ -155,23 +155,23 @@ export function Hero() {
         <img
           src={HERO_IMG || '/placeholder.svg'}
           alt="Витрина бутика Refaced: японский доспех среди оправ на фоне фасадов Санкт-Петербурга"
-          className="absolute inset-0 h-full w-full origin-center object-cover animate-kenburns"
+          className="absolute inset-0 h-full w-full origin-center object-cover grayscale animate-kenburns"
           crossOrigin="anonymous"
         />
-        {/* Very gentle bottom scrim for legibility only */}
+        {/* Bottom scrim for legibility */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to top, rgba(22,20,15,0.62) 0%, rgba(22,20,15,0.22) 32%, rgba(22,20,15,0) 58%)',
+              'linear-gradient(to top, rgba(18,17,14,0.85) 0%, rgba(18,17,14,0.45) 34%, rgba(18,17,14,0.12) 60%, rgba(18,17,14,0) 80%)',
           }}
         />
-        {/* Soft lower-left wash to keep the editorial text legible over bright frames */}
+        {/* Lower-left wash to anchor the editorial text */}
         <div
           className="absolute inset-0 hidden md:block"
           style={{
             background:
-              'radial-gradient(120% 90% at 0% 100%, rgba(22,20,15,0.5) 0%, rgba(22,20,15,0.18) 38%, rgba(22,20,15,0) 62%)',
+              'radial-gradient(120% 95% at 0% 100%, rgba(18,17,14,0.7) 0%, rgba(18,17,14,0.3) 40%, rgba(18,17,14,0) 66%)',
           }}
         />
 
