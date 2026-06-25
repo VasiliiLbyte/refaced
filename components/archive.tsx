@@ -1,4 +1,5 @@
 import { Reveal } from './reveal'
+import { SectionLabel } from './section-label'
 
 const IMG_MAIN =
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8404-%D0%A3%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%BE-NR-d6MLxZCoYfAxhANSGNuf05tTe3LOag.jpg'
@@ -7,7 +8,8 @@ const IMG_DETAIL =
 
 export function Archive() {
   return (
-    <section className="bg-ink py-20 text-offwhite md:py-28 lg:py-32">
+    <section className="relative bg-ink py-20 text-offwhite md:py-28 lg:py-32">
+      <SectionLabel label="03 — Архив" tone="text-offwhite/40" />
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-12 px-6 md:px-12 lg:grid-cols-2 lg:gap-20 lg:px-20">
         {/* Text */}
         <Reveal className="order-2 lg:order-1">
@@ -39,7 +41,7 @@ export function Archive() {
         {/* Images */}
         <Reveal className="order-1 lg:order-2" delay={0.1}>
           <div className="grid grid-cols-5 gap-4">
-            <div className="col-span-3 aspect-[4/5] overflow-hidden">
+            <div className="film-grain relative col-span-3 aspect-[4/5] overflow-hidden">
               <img
                 src={IMG_MAIN || '/placeholder.svg'}
                 alt="Витрина с антикварными очками, пенсне и лорнетами на пробковом основании"
@@ -47,7 +49,7 @@ export function Archive() {
                 crossOrigin="anonymous"
               />
             </div>
-            <div className="col-span-2 mt-12 aspect-[3/4] overflow-hidden">
+            <div className="film-grain relative col-span-2 mt-12 aspect-[3/4] overflow-hidden">
               <img
                 src={IMG_DETAIL || '/placeholder.svg'}
                 alt="Антикварные пенсне и футляры крупным планом"

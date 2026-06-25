@@ -1,4 +1,6 @@
 import { Reveal } from './reveal'
+import { SectionLabel } from './section-label'
+import { Magnetic } from './magnetic'
 
 const IMG =
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8264-%D0%A3%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%BE-NR-82tvoITIj2jgnYMUSwa4Q0J3eN9jDd.jpg'
@@ -23,10 +25,11 @@ const STEPS = [
 
 export function EyeExam() {
   return (
-    <section className="bg-offwhite py-20 md:py-28 lg:py-32">
+    <section className="relative bg-offwhite py-20 md:py-28 lg:py-32">
+      <SectionLabel label="02 — Услуга" />
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-12 px-6 md:px-12 lg:grid-cols-2 lg:gap-20 lg:px-20">
         <Reveal>
-          <div className="aspect-[4/3] overflow-hidden">
+          <div className="film-grain relative aspect-[4/3] overflow-hidden">
             <img
               src={IMG || '/placeholder.svg'}
               alt="Профессиональный набор пробных линз оптометриста в бутике Refaced"
@@ -68,12 +71,14 @@ export function EyeExam() {
             ))}
           </div>
 
-          <a
-            href="#"
-            className="mt-10 inline-flex items-center justify-center border border-ink px-9 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ink transition-colors duration-300 hover:bg-ink hover:text-offwhite"
-          >
-            Записаться онлайн
-          </a>
+          <Magnetic className="mt-10" strength={10}>
+            <a
+              href="#"
+              className="inline-flex items-center justify-center border border-ink px-9 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ink transition-colors duration-300 hover:bg-ink hover:text-offwhite"
+            >
+              Записаться онлайн
+            </a>
+          </Magnetic>
         </Reveal>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import { Reveal } from './reveal'
+import { NumberTicker } from './number-ticker'
 
 export function Philosophy() {
   return (
@@ -23,16 +24,16 @@ export function Philosophy() {
         <Reveal delay={0.2}>
           <div className="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-10 border-t border-ink/10 pt-12 sm:grid-cols-3">
             {[
-              { value: '60+', label: 'нишевых брендов' },
-              { value: '2', label: 'бутика в\u00A0Санкт-Петербурге' },
-              { value: '15\u00A0лет', label: 'опыта оптометристов' },
+              { value: 60, suffix: '+', label: 'нишевых брендов' },
+              { value: 2, suffix: '', label: 'бутика в\u00A0Санкт-Петербурге' },
+              { value: 15, suffix: '\u00A0лет', label: 'опыта оптометристов' },
             ].map((stat) => (
               <div key={stat.label}>
                 <p
                   className="font-light text-ink"
                   style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
                 >
-                  {stat.value}
+                  <NumberTicker value={stat.value} suffix={stat.suffix} />
                 </p>
                 <p className="mt-2 text-xs font-medium uppercase tracking-[0.16em] text-ink/55">
                   {stat.label}

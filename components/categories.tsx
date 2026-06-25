@@ -1,4 +1,5 @@
 import { Reveal } from './reveal'
+import { SectionLabel } from './section-label'
 
 const CATEGORIES = [
   {
@@ -23,7 +24,8 @@ const CATEGORIES = [
 
 export function Categories() {
   return (
-    <section className="bg-offwhite py-20 md:py-28 lg:py-32">
+    <section className="relative bg-offwhite py-20 md:py-28 lg:py-32">
+      <SectionLabel label="01 — Каталог" />
       <div className="mx-auto max-w-[1600px] px-6 md:px-12 lg:px-20">
         <Reveal className="flex flex-col gap-4 border-b border-ink/10 pb-8 md:flex-row md:items-end md:justify-between">
           <div>

@@ -1,4 +1,5 @@
 import { Reveal } from './reveal'
+import { SectionLabel } from './section-label'
 
 const BRANDS = [
   'MATSUDA',
@@ -17,7 +18,8 @@ const BRANDS = [
 
 export function BrandsGrid() {
   return (
-    <section className="bg-offwhite pb-20 md:pb-28 lg:pb-32">
+    <section className="relative bg-offwhite pb-20 md:pb-28 lg:pb-32">
+      <SectionLabel label="04 — Бренды" />
       <div className="mx-auto max-w-[1600px] px-6 md:px-12 lg:px-20">
         <Reveal className="border-b border-ink/10 pb-8 text-center">
           <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-taupe">

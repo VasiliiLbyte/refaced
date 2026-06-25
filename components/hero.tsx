@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Search, Heart, ShoppingBag, User, Menu, X } from 'lucide-react'
 import { RefacedLogo } from './refaced-logo'
+import { Magnetic } from './magnetic'
 
 const NAV = ['Оптика', 'Солнце', 'Бренды', 'Проверка\u00A0зрения', 'Блог']
 
@@ -174,6 +175,8 @@ export function Hero() {
               'radial-gradient(120% 95% at 0% 100%, rgba(18,17,14,0.7) 0%, rgba(18,17,14,0.3) 40%, rgba(18,17,14,0) 66%)',
           }}
         />
+        {/* Subtle film grain over the photograph */}
+        <div className="film-grain absolute inset-0" aria-hidden="true" />
 
         {/* Text block — lower-left third */}
         <div className="absolute inset-x-0 bottom-0">
@@ -187,16 +190,28 @@ export function Hero() {
               </p>
 
               <h1
-                className="animate-rise mt-5 text-pretty font-light leading-[1.05] text-offwhite"
+                className="mt-5 font-light leading-[1.06] text-offwhite"
                 style={{
-                  animationDelay: '0.25s',
-                  fontSize: 'clamp(2.4rem, 6vw, 5rem)',
+                  fontSize: 'clamp(2.3rem, 5.4vw, 4.4rem)',
                   letterSpacing: '0.01em',
                 }}
               >
-                Точка зрения
-                <br />
-                ручной работы
+                <span className="line-mask">
+                  <span
+                    className="block whitespace-nowrap pb-[0.08em]"
+                    style={{ animationDelay: '0.25s' }}
+                  >
+                    Точка зрения
+                  </span>
+                </span>
+                <span className="line-mask">
+                  <span
+                    className="block whitespace-nowrap pb-[0.08em]"
+                    style={{ animationDelay: '0.38s' }}
+                  >
+                    ручной работы
+                  </span>
+                </span>
               </h1>
 
               <p
@@ -212,13 +227,17 @@ export function Hero() {
                 className="animate-rise mt-9 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-10"
                 style={{ animationDelay: '0.55s' }}
               >
-                <a
-                  href="#"
-                  className="group inline-flex flex-col text-sm font-medium uppercase tracking-[0.18em] text-offwhite"
-                >
-                  Смотреть коллекцию
-                  <span className="mt-1.5 h-px w-full bg-offwhite/60 transition-all duration-300 group-hover:bg-taupe" />
-                </a>
+                <Magnetic>
+                  <a
+                    href="#"
+                    className="group inline-flex flex-col text-sm font-medium uppercase tracking-[0.18em] text-offwhite"
+                  >
+                    Смотреть коллекцию
+                    <span className="relative mt-1.5 h-px w-full overflow-hidden bg-offwhite/40">
+                      <span className="absolute inset-0 -translate-x-full bg-taupe transition-transform duration-500 ease-out group-hover:translate-x-0" />
+                    </span>
+                  </a>
+                </Magnetic>
                 <a
                   href="#"
                   className="group inline-flex items-center gap-2 text-sm font-normal text-offwhite/85 transition-colors hover:text-offwhite"
@@ -234,16 +253,17 @@ export function Hero() {
         </div>
 
         {/* ── Brand marquee ──────────────────────── */}
-        <div className="absolute inset-x-0 bottom-0 overflow-hidden border-t border-offwhite/15 bg-ink/20 backdrop-blur-[2px]">
-          <div className="flex w-max animate-marquee py-3.5">
+        <div className="group absolute inset-x-0 bottom-0 overflow-hidden border-t border-offwhite/15 bg-ink/20 backdrop-blur-[2px]">
+          <div className="flex w-max animate-marquee py-3.5 group-hover:[animation-play-state:paused]">
             {[...BRANDS, ...BRANDS].map((brand, i) => (
-              <span
+              <a
                 key={`${brand}-${i}`}
-                className="flex items-center whitespace-nowrap px-7 text-[10px] font-medium uppercase tracking-[0.28em] text-offwhite/70"
+                href="#"
+                className="flex items-center whitespace-nowrap px-7 text-[10px] font-medium uppercase tracking-[0.28em] text-offwhite/70 transition-colors hover:text-offwhite"
               >
                 {brand}
                 <span className="ml-7 text-offwhite/30">·</span>
-              </span>
+              </a>
             ))}
           </div>
         </div>
