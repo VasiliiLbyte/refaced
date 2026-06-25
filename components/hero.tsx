@@ -72,44 +72,9 @@ export function Hero() {
       >
         {/* spacer to sit below the utility bar */}
         <div className="h-9" />
-        <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-6 md:h-20 md:px-12 lg:px-20">
-          {/* Logo */}
-          <a
-            href="#"
-            className={`transition-colors duration-500 ${inkTone}`}
-            aria-label="Refaced — на главную"
-          >
-            <RefacedLogo />
-          </a>
-
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-9">
-            {NAV.map((item) => (
-              <a
-                key={item}
-                href="#"
-                className={`group relative text-[11px] font-medium uppercase tracking-[0.18em] transition-colors duration-500 ${inkTone}`}
-              >
-                {item}
-                <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-taupe transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
-          </nav>
-
-          {/* Icons */}
-          <div className={`flex items-center gap-5 transition-colors duration-500 ${inkTone}`}>
-            <button aria-label="Поиск" className="hidden sm:block transition-opacity hover:opacity-60">
-              <Search className="h-[18px] w-[18px]" strokeWidth={1.4} />
-            </button>
-            <button aria-label="Избранное" className="hidden sm:block transition-opacity hover:opacity-60">
-              <Heart className="h-[18px] w-[18px]" strokeWidth={1.4} />
-            </button>
-            <button aria-label="Корзина" className="transition-opacity hover:opacity-60">
-              <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={1.4} />
-            </button>
-            <button aria-label="Личный кабинет" className="hidden sm:block transition-opacity hover:opacity-60">
-              <User className="h-[18px] w-[18px]" strokeWidth={1.4} />
-            </button>
+        <div className="mx-auto grid h-20 max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-6 md:h-24 md:px-12 lg:px-20">
+          {/* Left: menu trigger (mobile) + primary nav (desktop) */}
+          <div className={`flex items-center justify-start gap-8 transition-colors duration-500 ${inkTone}`}>
             <button
               aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
               className="lg:hidden transition-opacity hover:opacity-60"
@@ -121,6 +86,58 @@ export function Hero() {
                 <Menu className="h-5 w-5" strokeWidth={1.4} />
               )}
             </button>
+            <nav className="hidden lg:flex items-center gap-8">
+              {NAV.slice(0, 3).map((item) => (
+                <a
+                  key={item}
+                  href="#"
+                  className="group relative text-[11px] font-medium uppercase tracking-[0.18em]"
+                >
+                  {item}
+                  <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-taupe transition-all duration-300 group-hover:w-full" />
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          {/* Center: logo */}
+          <a
+            href="#"
+            className={`justify-self-center transition-colors duration-500 ${inkTone}`}
+            aria-label="Refaced — на главную"
+          >
+            <RefacedLogo />
+          </a>
+
+          {/* Right: secondary nav (desktop) + icons */}
+          <div className={`flex items-center justify-end gap-6 transition-colors duration-500 ${inkTone}`}>
+            <nav className="hidden lg:flex items-center gap-8">
+              {NAV.slice(3).map((item) => (
+                <a
+                  key={item}
+                  href="#"
+                  className="group relative text-[11px] font-medium uppercase tracking-[0.18em]"
+                >
+                  {item}
+                  <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-taupe transition-all duration-300 group-hover:w-full" />
+                </a>
+              ))}
+            </nav>
+            <span className="hidden lg:block h-4 w-px bg-current opacity-20" />
+            <div className="flex items-center gap-5">
+              <button aria-label="Поиск" className="hidden sm:block transition-opacity hover:opacity-60">
+                <Search className="h-[18px] w-[18px]" strokeWidth={1.4} />
+              </button>
+              <button aria-label="Избранное" className="hidden sm:block transition-opacity hover:opacity-60">
+                <Heart className="h-[18px] w-[18px]" strokeWidth={1.4} />
+              </button>
+              <button aria-label="Корзина" className="transition-opacity hover:opacity-60">
+                <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={1.4} />
+              </button>
+              <button aria-label="Личный кабинет" className="hidden sm:block transition-opacity hover:opacity-60">
+                <User className="h-[18px] w-[18px]" strokeWidth={1.4} />
+              </button>
+            </div>
           </div>
         </div>
       </header>
