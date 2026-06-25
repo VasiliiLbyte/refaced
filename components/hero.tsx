@@ -159,6 +159,14 @@ export function Hero() {
           className="absolute inset-0 h-full w-full origin-center object-cover grayscale animate-kenburns"
           crossOrigin="anonymous"
         />
+        {/* Top scrim to keep the header and utility bar legible */}
+        <div
+          className="absolute inset-x-0 top-0 h-56"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(18,17,14,0.62) 0%, rgba(18,17,14,0.32) 45%, rgba(18,17,14,0) 100%)',
+          }}
+        />
         {/* Bottom scrim for legibility */}
         <div
           className="absolute inset-0"
