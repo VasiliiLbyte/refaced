@@ -103,7 +103,7 @@ export function Hero() {
           {/* Center: logo */}
           <a
             href="#"
-            className={`justify-self-center transition-colors duration-500 ${inkTone}`}
+            className={`justify-self-center px-6 sm:px-10 lg:px-16 xl:px-24 transition-colors duration-500 ${inkTone}`}
             aria-label="Refaced — на главную"
           >
             <RefacedLogo />
