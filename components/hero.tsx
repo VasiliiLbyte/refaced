@@ -34,11 +34,16 @@ export function Hero() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // lock body scroll when the mobile menu is open
+  // lock body scroll + close on Escape when the menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
     }
   }, [menuOpen])
 
@@ -73,31 +78,23 @@ export function Hero() {
         {/* spacer to sit below the utility bar */}
         <div className="h-9" />
         <div className="mx-auto grid h-20 max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-6 md:h-24 md:px-12 lg:px-20">
-          {/* Left: menu trigger (mobile) + primary nav (desktop) */}
-          <div className={`flex items-center justify-start gap-8 transition-colors duration-500 ${inkTone}`}>
+          {/* Left: menu trigger */}
+          <div className={`flex items-center justify-start transition-colors duration-500 ${inkTone}`}>
             <button
-              aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
-              className="lg:hidden transition-opacity hover:opacity-60"
-              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Открыть меню"
+              aria-expanded={menuOpen}
+              className="group flex items-center gap-3 transition-opacity hover:opacity-60"
+              onClick={() => setMenuOpen(true)}
             >
-              {menuOpen ? (
-                <X className="h-5 w-5" strokeWidth={1.4} />
-              ) : (
-                <Menu className="h-5 w-5" strokeWidth={1.4} />
-              )}
+              <span className="flex w-5 flex-col gap-[5px]">
+                <span className="h-px w-full bg-current transition-all duration-300 group-hover:w-3/4" />
+                <span className="h-px w-full bg-current" />
+                <span className="h-px w-full bg-current transition-all duration-300 group-hover:w-1/2" />
+              </span>
+              <span className="hidden text-[11px] font-medium uppercase tracking-[0.18em] sm:inline">
+                Меню
+              </span>
             </button>
-            <nav className="hidden lg:flex items-center gap-8">
-              {NAV.slice(0, 3).map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="group relative text-[11px] font-medium uppercase tracking-[0.18em]"
-                >
-                  {item}
-                  <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-taupe transition-all duration-300 group-hover:w-full" />
-                </a>
-              ))}
-            </nav>
           </div>
 
           {/* Center: logo */}
@@ -109,62 +106,116 @@ export function Hero() {
             <RefacedLogo />
           </a>
 
-          {/* Right: secondary nav (desktop) + icons */}
-          <div className={`flex items-center justify-end gap-6 transition-colors duration-500 ${inkTone}`}>
-            <nav className="hidden lg:flex items-center gap-8">
-              {NAV.slice(3).map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="group relative text-[11px] font-medium uppercase tracking-[0.18em]"
-                >
-                  {item}
-                  <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-taupe transition-all duration-300 group-hover:w-full" />
-                </a>
-              ))}
-            </nav>
-            <span className="hidden lg:block h-4 w-px bg-current opacity-20" />
-            <div className="flex items-center gap-5">
-              <button aria-label="Поиск" className="hidden sm:block transition-opacity hover:opacity-60">
-                <Search className="h-[18px] w-[18px]" strokeWidth={1.4} />
-              </button>
-              <button aria-label="Избранное" className="hidden sm:block transition-opacity hover:opacity-60">
-                <Heart className="h-[18px] w-[18px]" strokeWidth={1.4} />
-              </button>
-              <button aria-label="Корзина" className="transition-opacity hover:opacity-60">
-                <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={1.4} />
-              </button>
-              <button aria-label="Личный кабинет" className="hidden sm:block transition-opacity hover:opacity-60">
-                <User className="h-[18px] w-[18px]" strokeWidth={1.4} />
-              </button>
-            </div>
+          {/* Right: icons */}
+          <div className={`flex items-center justify-end gap-5 transition-colors duration-500 ${inkTone}`}>
+            <button aria-label="Поиск" className="hidden sm:block transition-opacity hover:opacity-60">
+              <Search className="h-[18px] w-[18px]" strokeWidth={1.4} />
+            </button>
+            <button aria-label="Избранное" className="hidden sm:block transition-opacity hover:opacity-60">
+              <Heart className="h-[18px] w-[18px]" strokeWidth={1.4} />
+            </button>
+            <button aria-label="Корзина" className="transition-opacity hover:opacity-60">
+              <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={1.4} />
+            </button>
+            <button aria-label="Личный кабинет" className="hidden sm:block transition-opacity hover:opacity-60">
+              <User className="h-[18px] w-[18px]" strokeWidth={1.4} />
+            </button>
           </div>
         </div>
       </header>
 
-      {/* ── Mobile menu overlay ───────────────────── */}
+      {/* ── Fullscreen menu overlay ───────────────── */}
       <div
-        className={`fixed inset-0 z-40 bg-offwhite transition-opacity duration-300 lg:hidden ${
-          menuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+        className={`fixed inset-0 z-[60] transition-all duration-500 ${
+          menuOpen ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
+        aria-hidden={!menuOpen}
       >
-        <nav className="flex h-full flex-col justify-center gap-7 px-10">
-          {NAV.map((item) => (
-            <a
-              key={item}
-              href="#"
+        {/* dim backdrop */}
+        <div
+          className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+          onClick={() => setMenuOpen(false)}
+        />
+
+        {/* panel */}
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Главное меню"
+          className={`absolute inset-y-0 left-0 flex w-full max-w-xl flex-col bg-offwhite transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            menuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          {/* panel header */}
+          <div className="flex h-20 items-center justify-between border-b border-ink/10 px-8 md:h-24 md:px-12">
+            <span className="text-[11px] font-medium uppercase tracking-[0.24em] text-ink/50">
+              Меню
+            </span>
+            <button
+              aria-label="Закрыть меню"
+              className="group flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-ink transition-opacity hover:opacity-60"
               onClick={() => setMenuOpen(false)}
-              className="text-2xl font-light tracking-wide text-ink"
             >
-              {item}
-            </a>
-          ))}
-          <div className="mt-6 flex gap-7 text-ink/70">
-            <Search className="h-5 w-5" strokeWidth={1.4} />
-            <Heart className="h-5 w-5" strokeWidth={1.4} />
-            <User className="h-5 w-5" strokeWidth={1.4} />
+              Закрыть
+              <X className="h-5 w-5" strokeWidth={1.4} />
+            </button>
           </div>
-        </nav>
+
+          {/* primary nav */}
+          <nav className="flex flex-1 flex-col justify-center gap-1 px-8 md:px-12">
+            {NAV.map((item, i) => (
+              <a
+                key={item}
+                href="#"
+                onClick={() => setMenuOpen(false)}
+                className="group flex items-baseline gap-4 py-2.5"
+                style={{
+                  animation: menuOpen
+                    ? `rise 0.6s cubic-bezier(0.16,1,0.3,1) ${0.15 + i * 0.07}s both`
+                    : 'none',
+                }}
+              >
+                <span className="w-7 text-[11px] font-medium text-taupe tabular-nums">
+                  {`0${i + 1}`}
+                </span>
+                <span className="relative font-light leading-none text-ink [font-size:clamp(2rem,5vw,3.25rem)]">
+                  {item}
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-taupe transition-all duration-300 group-hover:w-full" />
+                </span>
+              </a>
+            ))}
+          </nav>
+
+          {/* panel footer */}
+          <div className="border-t border-ink/10 px-8 py-8 md:px-12">
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+              <a
+                href="#"
+                onClick={() => setMenuOpen(false)}
+                className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink/60 transition-colors hover:text-ink"
+              >
+                Поиск
+              </a>
+              <a
+                href="#"
+                onClick={() => setMenuOpen(false)}
+                className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink/60 transition-colors hover:text-ink"
+              >
+                Избранное
+              </a>
+              <a
+                href="#"
+                onClick={() => setMenuOpen(false)}
+                className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink/60 transition-colors hover:text-ink"
+              >
+                Личный кабинет
+              </a>
+            </div>
+            <p className="mt-6 text-[11px] uppercase tracking-[0.18em] text-ink/40">
+              {'Санкт-Петербург\u2002·\u2002Два бутика оптики'}
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* ── Hero ──────────────────────────────────── */}
