@@ -1,7 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Search, Heart, ShoppingBag, User, Menu, X } from 'lucide-react'
+import {
+  Search,
+  Heart,
+  ShoppingBag,
+  User,
+  Menu,
+  X,
+  Instagram,
+  Facebook,
+  Send,
+} from 'lucide-react'
 import { RefacedLogo } from './refaced-logo'
 import { Magnetic } from './magnetic'
 
@@ -133,7 +143,7 @@ export function Hero() {
       >
         {/* dim backdrop */}
         <div
-          className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+          className="absolute inset-0 bg-ink/50"
           onClick={() => setMenuOpen(false)}
         />
 
@@ -142,78 +152,62 @@ export function Hero() {
           role="dialog"
           aria-modal="true"
           aria-label="Главное меню"
-          className={`absolute inset-y-0 left-0 flex w-full max-w-xl flex-col bg-offwhite transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`absolute inset-y-0 left-0 flex w-full max-w-sm flex-col bg-ink text-offwhite transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             menuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
-          {/* panel header */}
-          <div className="flex h-20 items-center justify-between border-b border-ink/10 px-8 md:h-24 md:px-12">
-            <span className="text-[11px] font-medium uppercase tracking-[0.24em] text-ink/50">
-              Меню
-            </span>
+          {/* close */}
+          <div className="px-8 pt-8 md:px-10 md:pt-10">
             <button
               aria-label="Закрыть меню"
-              className="group flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-ink transition-opacity hover:opacity-60"
+              className="transition-opacity hover:opacity-60"
               onClick={() => setMenuOpen(false)}
             >
-              Закрыть
-              <X className="h-5 w-5" strokeWidth={1.4} />
+              <X className="h-6 w-6" strokeWidth={1.2} />
             </button>
           </div>
 
           {/* primary nav */}
-          <nav className="flex flex-1 flex-col justify-center gap-1 px-8 md:px-12">
-            {NAV.map((item, i) => (
+          <nav className="flex flex-1 flex-col justify-center gap-1 px-8 md:px-10">
+            {NAV.map((item) => (
               <a
                 key={item}
                 href="#"
                 onClick={() => setMenuOpen(false)}
-                className="group flex items-baseline gap-4 py-2.5"
-                style={{
-                  animation: menuOpen
-                    ? `rise 0.6s cubic-bezier(0.16,1,0.3,1) ${0.15 + i * 0.07}s both`
-                    : 'none',
-                }}
+                className="py-2.5 font-light leading-tight text-offwhite/90 transition-colors duration-300 hover:text-offwhite [font-size:clamp(1.75rem,3.4vw,2.4rem)]"
               >
-                <span className="w-7 text-[11px] font-medium text-taupe tabular-nums">
-                  {`0${i + 1}`}
-                </span>
-                <span className="relative font-light leading-none text-ink [font-size:clamp(2rem,5vw,3.25rem)]">
-                  {item}
-                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-taupe transition-all duration-300 group-hover:w-full" />
-                </span>
+                {item}
               </a>
             ))}
           </nav>
 
           {/* panel footer */}
-          <div className="border-t border-ink/10 px-8 py-8 md:px-12">
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-              <a
-                href="#"
-                onClick={() => setMenuOpen(false)}
-                className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink/60 transition-colors hover:text-ink"
-              >
-                Поиск
-              </a>
-              <a
-                href="#"
-                onClick={() => setMenuOpen(false)}
-                className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink/60 transition-colors hover:text-ink"
-              >
-                Избранное
-              </a>
-              <a
-                href="#"
-                onClick={() => setMenuOpen(false)}
-                className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink/60 transition-colors hover:text-ink"
-              >
-                Личный кабинет
-              </a>
+          <div className="px-8 pb-10 md:px-10">
+            <div className="flex flex-col gap-3">
+              {['Доставка и оплата', 'Возврат', 'Контакты', 'Партнёрам'].map(
+                (link) => (
+                  <a
+                    key={link}
+                    href="#"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-[11px] font-medium uppercase tracking-[0.18em] text-offwhite/45 transition-colors hover:text-offwhite/80"
+                  >
+                    {link}
+                  </a>
+                ),
+              )}
             </div>
-            <p className="mt-6 text-[11px] uppercase tracking-[0.18em] text-ink/40">
-              {'Санкт-Петербург\u2002·\u2002Два бутика оптики'}
-            </p>
+            <div className="mt-8 flex items-center gap-6">
+              {['Telegram', 'Instagram', 'VK'].map((social) => (
+                <a
+                  key={social}
+                  href="#"
+                  className="text-[11px] font-medium uppercase tracking-[0.18em] text-offwhite/45 transition-colors hover:text-offwhite/80"
+                >
+                  {social}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -295,7 +289,7 @@ export function Hero() {
                 style={{ animationDelay: '0.4s' }}
               >
                 {
-                  'Привозим нишевые бренды оправ и\u00A0солнцезащитных очков со\u00A0всего мира и\u00A0подбираем пару под ваше лицо, стиль и\u00A0зрение\u00A0\u2014 в\u00A0двух бутиках Санкт-Петербурга.'
+                  'Привозим нишевые бренды оправ и\u00A0солнцезащитных очков со\u00A0всего мира и\u00A0подбираем пару под ваше лиц��, стиль и\u00A0зрение\u00A0\u2014 в\u00A0двух бутиках Санкт-Петербурга.'
                 }
               </p>
 
