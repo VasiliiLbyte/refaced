@@ -1,17 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import {
-  Search,
-  Heart,
-  ShoppingBag,
-  User,
-  Menu,
-  X,
-  Instagram,
-  Facebook,
-  Send,
-} from 'lucide-react'
+import { Search, Heart, ShoppingBag, User, Menu, X } from 'lucide-react'
 import { RefacedLogo } from './refaced-logo'
 import { Magnetic } from './magnetic'
 
@@ -30,8 +20,7 @@ const BRANDS = [
   'VICTORIA\u00A0BECKHAM',
 ]
 
-const HERO_IMG =
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8427-%D0%A3%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%BE-NR-A9P7YdLJ7tWRNu4i7SdvMO1F2RWGUu.jpg'
+const HERO_IMG = '/hero-samurai.jpg'
 
 export function Hero() {
   const [scrolled, setScrolled] = useState(false)
@@ -218,7 +207,7 @@ export function Hero() {
         <img
           src={HERO_IMG || '/placeholder.svg'}
           alt="Витрина бутика Refaced: японский доспех среди оправ на фоне фасадов Санкт-Петербурга"
-          className="absolute inset-0 h-full w-full origin-center object-cover grayscale animate-kenburns"
+          className="absolute inset-0 h-full w-full origin-center object-cover object-[center_30%] grayscale animate-kenburns"
           crossOrigin="anonymous"
         />
         {/* Top scrim to keep the header and utility bar legible */}
