@@ -208,8 +208,10 @@ export function Hero() {
         <img
           src={HERO_IMG || assetPath('/placeholder.svg')}
           alt="Витрина бутика Refaced: японский доспех среди оправ на фоне фасадов Санкт-Петербурга"
-          className="absolute inset-0 h-full w-full origin-center object-cover object-[center_38%] grayscale animate-kenburns"
-          crossOrigin="anonymous"
+          width={1536}
+          height={2752}
+          fetchPriority="high"
+          className="absolute inset-0 h-full w-full origin-center object-cover object-[center_30%] grayscale animate-kenburns"
         />
         {/* Top scrim to keep the header and utility bar legible */}
         <div
@@ -279,7 +281,7 @@ export function Hero() {
                 style={{ animationDelay: '0.4s' }}
               >
                 {
-                  'Привозим нишевые бренды оправ и\u00A0солнцезащитных очков со\u00A0всего мира и\u00A0подбираем пару под ваше лиц��, стиль и\u00A0зрение\u00A0\u2014 в\u00A0двух бутиках Санкт-Петербурга.'
+                  'Привозим нишевые бренды оправ и\u00A0солнцезащитных очков со\u00A0всего мира и\u00A0подбираем пару под ваше лицо, стиль и\u00A0зрение\u00A0\u2014 в\u00A0двух бутиках Санкт-Петербурга.'
                 }
               </p>
 
