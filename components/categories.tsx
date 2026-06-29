@@ -1,5 +1,6 @@
 import { Reveal } from './reveal'
 import { SectionLabel } from './section-label'
+import { assetPath } from '@/lib/utils'
 
 const CATEGORIES = [
   {
@@ -56,7 +57,7 @@ export function Categories() {
               <a href="#" className="group block">
                 <div className="relative aspect-[3/4] overflow-hidden bg-ink/5">
                   <img
-                    src={cat.img || '/placeholder.svg'}
+                    src={cat.img || assetPath('/placeholder.svg')}
                     alt={cat.alt}
                     className="h-full w-full object-cover grayscale transition-all duration-[1.2s] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
                     crossOrigin="anonymous"

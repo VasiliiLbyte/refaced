@@ -1,5 +1,6 @@
 import { Reveal } from './reveal'
 import { SectionLabel } from './section-label'
+import { assetPath } from '@/lib/utils'
 
 const IMG_MAIN =
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8404-%D0%A3%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%BE-NR-d6MLxZCoYfAxhANSGNuf05tTe3LOag.jpg'
@@ -43,7 +44,7 @@ export function Archive() {
           <div className="grid grid-cols-5 gap-4">
             <div className="film-grain relative col-span-3 aspect-[4/5] overflow-hidden">
               <img
-                src={IMG_MAIN || '/placeholder.svg'}
+                src={IMG_MAIN || assetPath('/placeholder.svg')}
                 alt="Витрина с антикварными очками, пенсне и лорнетами на пробковом основании"
                 className="h-full w-full object-cover grayscale"
                 crossOrigin="anonymous"
@@ -51,7 +52,7 @@ export function Archive() {
             </div>
             <div className="film-grain relative col-span-2 mt-12 aspect-[3/4] overflow-hidden">
               <img
-                src={IMG_DETAIL || '/placeholder.svg'}
+                src={IMG_DETAIL || assetPath('/placeholder.svg')}
                 alt="Антикварные пенсне и футляры крупным планом"
                 className="h-full w-full object-cover grayscale"
                 crossOrigin="anonymous"

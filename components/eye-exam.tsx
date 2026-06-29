@@ -1,6 +1,7 @@
 import { Reveal } from './reveal'
 import { SectionLabel } from './section-label'
 import { Magnetic } from './magnetic'
+import { assetPath } from '@/lib/utils'
 
 const IMG =
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8264-%D0%A3%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%BE-NR-82tvoITIj2jgnYMUSwa4Q0J3eN9jDd.jpg'
@@ -31,7 +32,7 @@ export function EyeExam() {
         <Reveal>
           <div className="film-grain relative aspect-[4/3] overflow-hidden">
             <img
-              src={IMG || '/placeholder.svg'}
+              src={IMG || assetPath('/placeholder.svg')}
               alt="Профессиональный набор пробных линз оптометриста в бутике Refaced"
               className="h-full w-full object-cover grayscale"
               crossOrigin="anonymous"

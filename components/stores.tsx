@@ -1,4 +1,5 @@
 import { Reveal } from './reveal'
+import { assetPath } from '@/lib/utils'
 
 const IMG =
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8370-%D0%A3%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%BE-NR-rCFbNx2qCBKeyYYktg0dqRhsFx9M1j.jpg'
@@ -59,7 +60,7 @@ export function Stores() {
 
         <Reveal delay={0.1} className="min-h-[380px] lg:min-h-0">
           <img
-            src={IMG || '/placeholder.svg'}
+            src={IMG || assetPath('/placeholder.svg')}
             alt="Интерьер бутика Refaced с витринами оправ и видом на улицу Санкт-Петербурга"
             className="h-full w-full object-cover grayscale"
             crossOrigin="anonymous"

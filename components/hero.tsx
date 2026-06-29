@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Search, Heart, ShoppingBag, User, Menu, X } from 'lucide-react'
 import { RefacedLogo } from './refaced-logo'
 import { Magnetic } from './magnetic'
+import { assetPath } from '@/lib/utils'
 
 const NAV = ['Оптика', 'Солнце', 'Бренды', 'Проверка\u00A0зрения', 'Блог']
 
@@ -20,7 +21,7 @@ const BRANDS = [
   'VICTORIA\u00A0BECKHAM',
 ]
 
-const HERO_IMG = '/hero-samurai.jpg'
+const HERO_IMG = assetPath('/hero-samurai.jpg')
 
 export function Hero() {
   const [scrolled, setScrolled] = useState(false)
@@ -205,7 +206,7 @@ export function Hero() {
       <section className="relative -mt-9 h-[100svh] w-full overflow-hidden bg-ink">
         {/* Photo with slow Ken Burns zoom */}
         <img
-          src={HERO_IMG || '/placeholder.svg'}
+          src={HERO_IMG || assetPath('/placeholder.svg')}
           alt="Витрина бутика Refaced: японский доспех среди оправ на фоне фасадов Санкт-Петербурга"
           className="absolute inset-0 h-full w-full origin-center object-cover object-[center_30%] grayscale animate-kenburns"
           crossOrigin="anonymous"
