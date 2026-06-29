@@ -2,14 +2,14 @@
 
 import { useEffect } from 'react'
 import Lenis from 'lenis'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export function SmoothScroll() {
   useEffect(() => {
-    // Respect users who prefer reduced motion — skip inertial scrolling.
-    const prefersReduced = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches
-    if (prefersReduced) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const lenis = new Lenis({
       duration: 1.1,
@@ -18,15 +18,17 @@ export function SmoothScroll() {
       touchMultiplier: 1.5,
     })
 
-    let rafId: number
-    function raf(time: number) {
-      lenis.raf(time)
-      rafId = requestAnimationFrame(raf)
-    }
-    rafId = requestAnimationFrame(raf)
+    lenis.on('scroll', ScrollTrigger.update)
+    const ticker = (time: number) => lenis.raf(time * 1000)
+    gsap.ticker.add(ticker)
+    gsap.ticker.lagSmoothing(0)
+
+    const onLoad = () => ScrollTrigger.refresh()
+    window.addEventListener('load', onLoad)
 
     return () => {
-      cancelAnimationFrame(rafId)
+      window.removeEventListener('load', onLoad)
+      gsap.ticker.remove(ticker)
       lenis.destroy()
     }
   }, [])

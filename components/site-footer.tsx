@@ -1,4 +1,5 @@
 import { RefacedLogo } from './refaced-logo'
+import { FEATURED_BRANDS, SOCIALS } from '@/lib/site-data'
 
 const NAV = [
   {
@@ -22,9 +23,7 @@ const NAV = [
   {
     title: 'Бренды',
     links: [
-      { label: 'MATSUDA', href: '#brands' },
-      { label: 'JACQUES MARIE MAGE', href: '#brands' },
-      { label: 'ANDY\u00A0WOLF', href: '#brands' },
+      ...FEATURED_BRANDS.map((brand) => ({ label: brand, href: '#brands' })),
       { label: 'Все бренды', href: '#brands' },
     ],
   },
@@ -72,8 +71,10 @@ export function SiteFooter() {
             {'© 2026 Refaced. Все права защищены.'}
           </p>
           <div className="flex items-center gap-6 text-xs uppercase tracking-[0.16em] text-offwhite/65">
-            {['Instagram', 'Telegram', 'VK'].map((social) => (
-              <span key={social}>{social}</span>
+            {SOCIALS.map((social) => (
+              <a key={social.label} href={social.href}>
+                {social.label}
+              </a>
             ))}
           </div>
         </div>

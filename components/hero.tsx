@@ -4,29 +4,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Search, Heart, ShoppingBag, User, X } from 'lucide-react'
 import { RefacedLogo } from './refaced-logo'
 import { assetPath } from '@/lib/utils'
+import { MAIN_NAV, SECONDARY_NAV, BRANDS, SOCIALS } from '@/lib/site-data'
 
 const MENU_ID = 'main-menu-panel'
-
-const NAV_LINKS = [
-  { label: 'Оптика', href: '#catalog' },
-  { label: 'Солнце', href: '#catalog' },
-  { label: 'Бренды', href: '#brands' },
-  { label: 'Проверка\u00A0зрения', href: '#eye-exam' },
-  { label: 'Блог', href: '#catalog' },
-] as const
-
-const BRANDS = [
-  'S.T.\u00A0DUPONT',
-  'LOEWE',
-  'MONTBLANC',
-  'MOSCOT',
-  'MASUNAGA',
-  'MATSUDA',
-  'ORGREEN',
-  'GÖTTI',
-  'RAY-BAN',
-  'VICTORIA\u00A0BECKHAM',
-]
 
 const HERO_IMG = assetPath('/hero-samurai.jpg')
 
@@ -46,7 +26,39 @@ export function Hero() {
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMenuOpen(false)
+      if (e.key === 'Escape') {
+        setMenuOpen(false)
+        return
+      }
+
+      if (e.key !== 'Tab') return
+
+      const panel = document.getElementById(MENU_ID)
+      if (!panel) return
+
+      const focusable = Array.from(
+        panel.querySelectorAll<HTMLElement>(
+          'a[href], button, [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => !el.hasAttribute('disabled'))
+
+      if (focusable.length === 0) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      const active = document.activeElement as HTMLElement | null
+
+      if (e.shiftKey) {
+        if (active === first || !panel.contains(active)) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else {
+        if (active === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => {
@@ -150,13 +162,15 @@ export function Hero() {
 
       {/* ── Fullscreen menu overlay ───────────────── */}
       <div
-        className={`fixed inset-0 z-[60] transition-all duration-500 ${
-          menuOpen ? 'visible opacity-100' : 'invisible opacity-0'
-        }`}
+        className={`fixed inset-0 z-[60] ${menuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
         aria-hidden={!menuOpen}
       >
         <div
-          className="absolute inset-0 bg-ink/50"
+          className={`absolute inset-0 backdrop-blur-md ${menuOpen ? 'visible' : 'invisible'}`}
+          aria-hidden="true"
+        />
+        <div
+          className={`absolute inset-0 bg-ink/70 transition-opacity duration-500 ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
           onClick={closeMenu}
           aria-hidden="true"
         />
@@ -166,7 +180,7 @@ export function Hero() {
           role="dialog"
           aria-modal="true"
           aria-label="Главное меню"
-          className={`absolute inset-y-0 left-0 flex w-full max-w-sm flex-col bg-ink text-offwhite transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`absolute inset-y-0 left-0 flex w-full max-w-md flex-col border-r border-offwhite/20 bg-ink text-offwhite shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             menuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
@@ -183,12 +197,12 @@ export function Hero() {
           </div>
 
           <nav className="flex flex-1 flex-col justify-center gap-1 px-8 md:px-10" aria-label="Основная навигация">
-            {NAV_LINKS.map((item) => (
+            {MAIN_NAV.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={closeMenu}
-                className="py-2.5 font-light leading-tight text-offwhite/90 transition-colors duration-300 hover:text-offwhite [font-size:clamp(1.75rem,3.4vw,2.4rem)]"
+                className="py-2.5 font-light leading-tight text-offwhite/90 transition-colors duration-300 hover:text-offwhite [font-size:clamp(1.5rem,2.6vw,2rem)]"
               >
                 {item.label}
               </a>
@@ -197,12 +211,7 @@ export function Hero() {
 
           <div className="px-8 pb-10 md:px-10">
             <div className="flex flex-col gap-3">
-              {[
-                { label: 'Доставка и оплата', href: '#catalog' },
-                { label: 'Возврат', href: '#catalog' },
-                { label: 'Контакты', href: '#stores' },
-                { label: 'Партнёрам', href: '#stores' },
-              ].map((link) => (
+              {SECONDARY_NAV.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
@@ -214,13 +223,14 @@ export function Hero() {
               ))}
             </div>
             <div className="mt-8 flex items-center gap-6">
-              {['Telegram', 'Instagram', 'VK'].map((social) => (
-                <span
-                  key={social}
+              {SOCIALS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
                   className="text-[11px] font-medium uppercase tracking-[0.16em] text-offwhite/55"
                 >
-                  {social}
-                </span>
+                  {social.label}
+                </a>
               ))}
             </div>
           </div>
@@ -336,12 +346,16 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="group absolute inset-x-0 bottom-0 overflow-hidden border-t border-offwhite/15 bg-ink/15 backdrop-blur-[1px]">
+        <div
+          className="group absolute inset-x-0 bottom-0 overflow-hidden border-t border-offwhite/15 bg-ink/15 backdrop-blur-[1px]"
+          aria-hidden="true"
+        >
           <div className="flex w-max animate-marquee py-3.5 group-hover:[animation-play-state:paused]">
             {[...BRANDS, ...BRANDS].map((brand, i) => (
               <a
                 key={`${brand}-${i}`}
                 href="#brands"
+                tabIndex={-1}
                 className="flex items-center whitespace-nowrap px-7 text-[10px] font-medium uppercase tracking-[0.22em] text-offwhite/75 transition-colors hover:text-offwhite"
               >
                 {brand}

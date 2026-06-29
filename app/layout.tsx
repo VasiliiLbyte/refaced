@@ -12,10 +12,34 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
+  // TODO: заменить на боевой домен refaced.ru при запуске
+  metadataBase: new URL('https://vasiliilbyte.github.io/refaced/'),
   title: 'Refaced — мультибрендовый бутик оптики в Санкт-Петербурге',
   description:
     'Редкие нишевые бренды оправ и солнцезащитных очков со всего мира, индивидуальный подбор и проверка зрения в двух бутиках Санкт-Петербурга.',
-  generator: 'v0.app',
+  openGraph: {
+    type: 'website',
+    locale: 'ru_RU',
+    siteName: 'Refaced',
+    title: 'Refaced — мультибрендовый бутик оптики в Санкт-Петербурге',
+    description:
+      'Редкие нишевые бренды оправ и солнцезащитных очков, проверка зрения и изготовление линз в двух бутиках Санкт-Петербурга.',
+    // TODO: заменить на горизонтальную OG-картинку 1200×630
+    images: [
+      {
+        url: 'https://vasiliilbyte.github.io/refaced/hero-samurai.jpg',
+        width: 1536,
+        height: 2752,
+        alt: 'Refaced — бутик оптики в Санкт-Петербурге',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Refaced — мультибрендовый бутик оптики в Санкт-Петербурге',
+    description:
+      'Редкие нишевые бренды оправ и солнцезащитных очков, проверка зрения и изготовление линз в двух бутиках Санкт-Петербурга.',
+  },
   icons: {
     icon: [
       {

@@ -1,11 +1,10 @@
 import { Reveal } from './reveal'
+import { Parallax } from './parallax'
 import { SectionLabel } from './section-label'
 import { assetPath } from '@/lib/utils'
 
-const IMG_MAIN =
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8404-%D0%A3%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%BE-NR-d6MLxZCoYfAxhANSGNuf05tTe3LOag.jpg'
-const IMG_DETAIL =
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8402-%D0%A3%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%BE-NR-wm472AWmfsm4DQjW3kxywaWeMWPbl4.jpg'
+const IMG_MAIN = assetPath('/archive-main.jpg')
+const IMG_DETAIL = assetPath('/archive-detail.jpg')
 
 export function Archive() {
   return (
@@ -13,7 +12,7 @@ export function Archive() {
       <SectionLabel label="03 — Архив" tone="text-offwhite/55" />
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-12 px-6 md:px-12 lg:grid-cols-2 lg:gap-20 lg:px-20">
         {/* Text */}
-        <Reveal className="order-2 lg:order-1">
+        <Reveal blur className="order-2 lg:order-1">
           <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-taupe">
             Архив
           </p>
@@ -40,23 +39,29 @@ export function Archive() {
         </Reveal>
 
         {/* Images */}
-        <Reveal className="order-1 lg:order-2" delay={0.1}>
+        <Reveal clip className="order-1 lg:order-2" delay={0.1}>
           <div className="grid grid-cols-5 gap-4">
             <div className="film-grain relative col-span-3 aspect-[4/5] overflow-hidden">
-              <img
-                src={IMG_MAIN || assetPath('/placeholder.svg')}
-                alt="Витрина с антикварными очками, пенсне и лорнетами на пробковом основании"
-                className="h-full w-full object-cover grayscale"
-                crossOrigin="anonymous"
-              />
+              <Parallax>
+                <img
+                  src={IMG_MAIN || assetPath('/placeholder.svg')}
+                  alt="Витрина с антикварными очками, пенсне и лорнетами на пробковом основании"
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover grayscale"
+                />
+              </Parallax>
             </div>
             <div className="film-grain relative col-span-2 mt-12 aspect-[3/4] overflow-hidden">
-              <img
-                src={IMG_DETAIL || assetPath('/placeholder.svg')}
-                alt="Антикварные пенсне и футляры крупным планом"
-                className="h-full w-full object-cover grayscale"
-                crossOrigin="anonymous"
-              />
+              <Parallax>
+                <img
+                  src={IMG_DETAIL || assetPath('/placeholder.svg')}
+                  alt="Антикварные пенсне и футляры крупным планом"
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover grayscale"
+                />
+              </Parallax>
             </div>
           </div>
         </Reveal>

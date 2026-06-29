@@ -13,9 +13,9 @@ export default function Page() {
     <main id="main-content" className="bg-offwhite">
       <SmoothScroll />
       <Hero />
+      <EyeExam />
       <Categories />
       <Philosophy />
-      <EyeExam />
       <Archive />
       <BrandsGrid />
       <Stores />

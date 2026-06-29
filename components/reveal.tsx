@@ -7,6 +7,8 @@ type RevealProps = {
   className?: string
   delay?: number
   as?: 'div' | 'section' | 'li' | 'figure'
+  blur?: boolean
+  clip?: boolean
 }
 
 export function Reveal({
@@ -14,6 +16,8 @@ export function Reveal({
   className = '',
   delay = 0,
   as = 'div',
+  blur = false,
+  clip = false,
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null)
   const [shown, setShown] = useState(false)
@@ -51,19 +55,36 @@ export function Reveal({
 
   const Tag = as as 'div'
 
+  const transition = reduceMotion
+    ? 'none'
+    : [
+        `opacity 1s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+        !clip ? `transform 1s cubic-bezier(0.16,1,0.3,1) ${delay}s` : null,
+        blur ? `filter 1s cubic-bezier(0.16,1,0.3,1) ${delay}s` : null,
+        clip ? `clip-path 1.1s cubic-bezier(0.16,1,0.3,1) ${delay}s` : null,
+      ]
+        .filter(Boolean)
+        .join(', ')
+
+  const clipStyle = clip
+    ? {
+        clipPath: shown ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)',
+        transition,
+      }
+    : undefined
+
   return (
     <Tag
       ref={ref as never}
       className={className}
       style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? 'translateY(0)' : 'translateY(28px)',
-        transition: reduceMotion
-          ? 'none'
-          : `opacity 1s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 1s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+        opacity: clip ? 1 : shown ? 1 : 0,
+        transform: clip ? undefined : shown ? 'translateY(0)' : 'translateY(28px)',
+        filter: blur ? (shown ? 'blur(0px)' : 'blur(6px)') : undefined,
+        transition: clip ? undefined : transition,
       }}
     >
-      {children}
+      {clip ? <div style={clipStyle}>{children}</div> : children}
     </Tag>
   )
 }

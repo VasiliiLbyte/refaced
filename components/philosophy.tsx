@@ -10,7 +10,7 @@ export function Philosophy() {
             Refaced — оптика как характер
           </p>
         </Reveal>
-        <Reveal delay={0.1}>
+        <Reveal blur delay={0.1}>
           <p
             className="mx-auto mt-8 max-w-[44rem] text-balance font-light leading-[1.35] text-ink"
             style={{ fontSize: 'clamp(1.5rem, 3.4vw, 2.6rem)' }}

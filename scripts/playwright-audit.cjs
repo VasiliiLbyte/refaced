@@ -2,7 +2,7 @@
  * One-off visual/a11y smoke audit. Not part of project test suite.
  * Usage: node scripts/playwright-audit.cjs [baseline|after] [url]
  */
-const { chromium } = require('../scripts/_pw/node_modules/playwright')
+const { chromium } = require('playwright')
 const { mkdir, writeFile } = require('fs/promises')
 const { join } = require('path')
 

@@ -1,20 +1,6 @@
 import { Reveal } from './reveal'
 import { SectionLabel } from './section-label'
-
-const BRANDS = [
-  'MATSUDA',
-  'MASUNAGA',
-  'MOSCOT',
-  'ORGREEN',
-  'GÖTTI',
-  'S.T.\u00A0DUPONT',
-  'LOEWE',
-  'MONTBLANC',
-  'RAY-BAN',
-  'ANDY\u00A0WOLF',
-  'OLIVER\u00A0PEOPLES',
-  'VICTORIA\u00A0BECKHAM',
-]
+import { BRANDS } from '@/lib/site-data'
 
 export function BrandsGrid() {
   return (

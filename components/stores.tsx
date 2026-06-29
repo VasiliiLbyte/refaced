@@ -1,27 +1,15 @@
 import { Reveal } from './reveal'
+import { Parallax } from './parallax'
 import { assetPath } from '@/lib/utils'
+import { STORES } from '@/lib/site-data'
 
-const IMG =
-  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_8370-%D0%A3%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%BE-NR-rCFbNx2qCBKeyYYktg0dqRhsFx9M1j.jpg'
-
-const STORES = [
-  {
-    name: 'Refaced на\u00A0Невском',
-    address: 'Невский проспект, 21',
-    hours: 'Ежедневно 11:00\u201322:00',
-  },
-  {
-    name: 'Refaced на\u00A0Рубинштейна',
-    address: 'улица Рубинштейна, 3',
-    hours: 'Ежедневно 12:00\u201321:00',
-  },
-]
+const IMG = assetPath('/stores-interior.jpg')
 
 export function Stores() {
   return (
     <section id="stores" className="bg-ink text-offwhite">
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 lg:grid-cols-2">
-        <Reveal className="flex flex-col justify-center px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
+        <Reveal blur className="flex flex-col justify-center px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
           <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-taupe">
             Бутики
           </p>
@@ -43,28 +31,34 @@ export function Stores() {
                 <h3 className="text-lg font-normal">{store.name}</h3>
                 <p className="mt-2 text-sm text-offwhite/70">{store.address}</p>
                 <p className="mt-1 text-sm text-offwhite/70">{store.hours}</p>
+                <a
+                  href={store.mapUrl}
+                  className="group mt-4 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-offwhite/80 hover:text-offwhite"
+                >
+                  Построить маршрут
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </a>
               </div>
             ))}
           </div>
-
-          <a
-            href="#stores"
-            className="group mt-12 inline-flex items-center gap-2 self-start text-sm font-medium uppercase tracking-[0.16em] text-offwhite"
-          >
-            Построить маршрут
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
-          </a>
         </Reveal>
 
-        <Reveal delay={0.1} className="min-h-[380px] lg:min-h-0">
-          <img
-            src={IMG || assetPath('/placeholder.svg')}
-            alt="Интерьер бутика Refaced с витринами оправ и видом на улицу Санкт-Петербурга"
-            className="h-full w-full object-cover grayscale"
-            crossOrigin="anonymous"
-          />
+        <Reveal
+          clip
+          delay={0.1}
+          className="relative min-h-[380px] overflow-hidden lg:min-h-0"
+        >
+          <Parallax>
+            <img
+              src={IMG || assetPath('/placeholder.svg')}
+              alt="Интерьер бутика Refaced с витринами оправ и видом на улицу Санкт-Петербурга"
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover grayscale"
+            />
+          </Parallax>
         </Reveal>
       </div>
     </section>

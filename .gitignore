@@ -14,3 +14,12 @@ node_modules
 .next/
 out/
 .DS_Store
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+scripts/_pw/
+scripts/audit-output/
+raw-images/
