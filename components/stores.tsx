@@ -19,10 +19,10 @@ const STORES = [
 
 export function Stores() {
   return (
-    <section className="bg-ink text-offwhite">
+    <section id="stores" className="bg-ink text-offwhite">
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 lg:grid-cols-2">
         <Reveal className="flex flex-col justify-center px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-32">
-          <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-taupe">
+          <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-taupe">
             Бутики
           </p>
           <h2
@@ -48,8 +48,8 @@ export function Stores() {
           </div>
 
           <a
-            href="#"
-            className="group mt-12 inline-flex items-center gap-2 self-start text-sm font-medium uppercase tracking-[0.18em] text-offwhite"
+            href="#stores"
+            className="group mt-12 inline-flex items-center gap-2 self-start text-sm font-medium uppercase tracking-[0.16em] text-offwhite"
           >
             Построить маршрут
             <span className="transition-transform duration-300 group-hover:translate-x-1">

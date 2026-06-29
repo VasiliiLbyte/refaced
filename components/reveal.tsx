@@ -17,15 +17,19 @@ export function Reveal({
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null)
   const [shown, setShown] = useState(false)
+  const [reduceMotion, setReduceMotion] = useState(false)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
 
-    if (
+    const reduced =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
+
+    setReduceMotion(reduced)
+
+    if (reduced) {
       setShown(true)
       return
     }
@@ -54,7 +58,9 @@ export function Reveal({
       style={{
         opacity: shown ? 1 : 0,
         transform: shown ? 'translateY(0)' : 'translateY(28px)',
-        transition: `opacity 1s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 1s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+        transition: reduceMotion
+          ? 'none'
+          : `opacity 1s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 1s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
       }}
     >
       {children}

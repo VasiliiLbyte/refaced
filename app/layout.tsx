@@ -48,6 +48,9 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${montserrat.variable} bg-background`}>
       <body className="font-sans antialiased">
+        <a href="#main-content" className="skip-link">
+          Перейти к содержимому
+        </a>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

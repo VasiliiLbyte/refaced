@@ -25,12 +25,12 @@ const CATEGORIES = [
 
 export function Categories() {
   return (
-    <section className="relative bg-offwhite py-20 md:py-28 lg:py-32">
+    <section id="catalog" className="relative bg-offwhite py-20 md:py-28 lg:py-32">
       <SectionLabel label="01 — Каталог" />
       <div className="mx-auto max-w-[1600px] px-6 md:px-12 lg:px-20">
         <Reveal className="flex flex-col gap-4 border-b border-ink/10 pb-8 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-taupe">
+            <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-taupe">
               Каталог
             </p>
             <h2
@@ -41,8 +41,8 @@ export function Categories() {
             </h2>
           </div>
           <a
-            href="#"
-            className="group inline-flex items-center gap-2 self-start text-[11px] font-medium uppercase tracking-[0.18em] text-ink md:self-auto"
+            href="#catalog"
+            className="group inline-flex items-center gap-2 self-start text-[11px] font-medium uppercase tracking-[0.16em] text-ink md:self-auto"
           >
             Весь каталог
             <span className="transition-transform duration-300 group-hover:translate-x-1">
@@ -54,12 +54,12 @@ export function Categories() {
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-5">
           {CATEGORIES.map((cat, i) => (
             <Reveal as="figure" key={cat.label} delay={i * 0.08}>
-              <a href="#" className="group block">
+              <a href="#catalog" className="group block">
                 <div className="relative aspect-[3/4] overflow-hidden bg-ink/5">
                   <img
                     src={cat.img || assetPath('/placeholder.svg')}
                     alt={cat.alt}
-                    className="h-full w-full object-cover grayscale transition-all duration-[1.2s] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
+                    className="h-full w-full object-cover grayscale transition-all duration-[1.2s] ease-out group-hover:scale-[1.02] group-hover:grayscale-0"
                     crossOrigin="anonymous"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/5 to-transparent" />

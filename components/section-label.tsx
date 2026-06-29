@@ -11,13 +11,13 @@ interface SectionLabelProps {
  */
 export function SectionLabel({
   label,
-  tone = 'text-ink/40',
+  tone = 'text-ink/55',
 }: SectionLabelProps) {
   return (
     <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-0 lg:block">
       <div className="sticky top-1/2 -translate-y-1/2">
         <span
-          className={`inline-block whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.3em] ${tone}`}
+          className={`inline-block whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.24em] ${tone}`}
           style={{
             writingMode: 'vertical-rl',
             transform: 'rotate(180deg)',

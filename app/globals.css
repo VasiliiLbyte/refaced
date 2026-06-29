@@ -26,7 +26,7 @@
 
   @keyframes kenburns {
     from {
-      transform: scale(1.06);
+      transform: scale(1.03);
     }
     to {
       transform: scale(1);
@@ -204,6 +204,32 @@
   html {
     @apply font-sans;
   }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--taupe) 80%, var(--ink));
+    outline-offset: 3px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100%;
+    z-index: 100;
+    border-radius: 0;
+    background: var(--ink);
+    color: var(--offwhite);
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: top 0.2s ease;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
 }
 
 @layer utilities {
@@ -218,7 +244,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.12;
+    opacity: 0.08;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size: 180px 180px;
@@ -250,5 +276,12 @@
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

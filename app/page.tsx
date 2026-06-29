@@ -10,13 +10,13 @@ import { SmoothScroll } from '@/components/smooth-scroll'
 
 export default function Page() {
   return (
-    <main className="bg-offwhite">
+    <main id="main-content" className="bg-offwhite">
       <SmoothScroll />
       <Hero />
       <Categories />
       <Philosophy />
-      <Archive />
       <EyeExam />
+      <Archive />
       <BrandsGrid />
       <Stores />
       <SiteFooter />

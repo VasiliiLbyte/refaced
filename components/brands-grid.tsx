@@ -7,22 +7,22 @@ const BRANDS = [
   'MOSCOT',
   'ORGREEN',
   'GÖTTI',
-  'S.T. DUPONT',
+  'S.T.\u00A0DUPONT',
   'LOEWE',
   'MONTBLANC',
   'RAY-BAN',
-  'ANDY WOLF',
-  'OLIVER PEOPLES',
-  'VICTORIA BECKHAM',
+  'ANDY\u00A0WOLF',
+  'OLIVER\u00A0PEOPLES',
+  'VICTORIA\u00A0BECKHAM',
 ]
 
 export function BrandsGrid() {
   return (
-    <section className="relative bg-offwhite pb-20 md:pb-28 lg:pb-32">
+    <section id="brands" className="relative bg-offwhite pb-20 md:pb-28 lg:pb-32">
       <SectionLabel label="04 — Бренды" />
       <div className="mx-auto max-w-[1600px] px-6 md:px-12 lg:px-20">
         <Reveal className="border-b border-ink/10 pb-8 text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-taupe">
+          <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-taupe">
             Бренды
           </p>
           <h2
@@ -38,7 +38,7 @@ export function BrandsGrid() {
             {BRANDS.map((brand) => (
               <li
                 key={brand}
-                className="flex items-center justify-center border-b border-r border-ink/10 px-4 py-10 text-center text-sm font-medium uppercase tracking-[0.18em] text-ink/55 transition-colors duration-300 hover:text-ink"
+                className="flex items-center justify-center border-b border-r border-ink/10 px-4 py-10 text-center text-sm font-medium uppercase tracking-[0.16em] text-ink/65"
               >
                 {brand}
               </li>

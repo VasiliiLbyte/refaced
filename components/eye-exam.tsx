@@ -9,8 +9,8 @@ const IMG =
 const STEPS = [
   {
     no: '01',
-    title: 'Диагностика',
-    text: 'Полная проверка зрения на\u00A0современном оборудовании и\u00A0набором пробных линз.',
+    title: 'Проверка зрения',
+    text: 'Спокойный осмотр с\u00A0пробными линзами и\u00A0вниманием к\u00A0вашим привычкам и\u00A0нагрузке.',
   },
   {
     no: '02',
@@ -20,13 +20,13 @@ const STEPS = [
   {
     no: '03',
     title: 'Изготовление',
-    text: 'Линзы под\u00A0ваш рецепт и\u00A0посадку\u00A0\u2014 с\u00A0контролем на\u00A0каждом этапе.',
+    text: 'Линзы под\u00A0ваш рецепт и\u00A0посадку\u00A0\u2014 с\u00A0вниманием к\u00A0комфорту и\u00A0внешнему виду.',
   },
 ]
 
 export function EyeExam() {
   return (
-    <section className="relative bg-offwhite py-20 md:py-28 lg:py-32">
+    <section id="eye-exam" className="relative bg-offwhite py-20 md:py-28 lg:py-32">
       <SectionLabel label="02 — Услуга" />
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-12 px-6 md:px-12 lg:grid-cols-2 lg:gap-20 lg:px-20">
         <Reveal>
@@ -41,7 +41,7 @@ export function EyeExam() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-taupe">
+          <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-taupe">
             Услуга
           </p>
           <h2
@@ -74,8 +74,8 @@ export function EyeExam() {
 
           <Magnetic className="mt-10" strength={10}>
             <a
-              href="#"
-              className="inline-flex items-center justify-center border border-ink px-9 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ink transition-colors duration-300 hover:bg-ink hover:text-offwhite"
+              href="#eye-exam"
+              className="inline-flex items-center justify-center border border-ink px-9 py-4 text-[11px] font-medium uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:bg-ink hover:text-offwhite"
             >
               Записаться онлайн
             </a>

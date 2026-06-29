@@ -6,7 +6,7 @@ export function Philosophy() {
     <section className="bg-offwhite pb-20 md:pb-28 lg:pb-32">
       <div className="mx-auto max-w-[1100px] px-6 text-center md:px-12">
         <Reveal>
-          <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-taupe">
+          <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-taupe">
             Refaced — оптика как характер
           </p>
         </Reveal>
@@ -35,7 +35,7 @@ export function Philosophy() {
                 >
                   <NumberTicker value={stat.value} suffix={stat.suffix} />
                 </p>
-                <p className="mt-2 text-xs font-medium uppercase tracking-[0.16em] text-ink/55">
+                <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-ink/60">
                   {stat.label}
                 </p>
               </div>

@@ -1,12 +1,19 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Search, Heart, ShoppingBag, User, Menu, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Search, Heart, ShoppingBag, User, X } from 'lucide-react'
 import { RefacedLogo } from './refaced-logo'
-import { Magnetic } from './magnetic'
 import { assetPath } from '@/lib/utils'
 
-const NAV = ['Оптика', 'Солнце', 'Бренды', 'Проверка\u00A0зрения', 'Блог']
+const MENU_ID = 'main-menu-panel'
+
+const NAV_LINKS = [
+  { label: 'Оптика', href: '#catalog' },
+  { label: 'Солнце', href: '#catalog' },
+  { label: 'Бренды', href: '#brands' },
+  { label: 'Проверка\u00A0зрения', href: '#eye-exam' },
+  { label: 'Блог', href: '#catalog' },
+] as const
 
 const BRANDS = [
   'S.T.\u00A0DUPONT',
@@ -26,6 +33,8 @@ const HERO_IMG = assetPath('/hero-samurai.jpg')
 export function Hero() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuTriggerRef = useRef<HTMLButtonElement>(null)
+  const menuCloseRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -34,7 +43,6 @@ export function Hero() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // lock body scroll + close on Escape when the menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     const onKey = (e: KeyboardEvent) => {
@@ -47,8 +55,23 @@ export function Hero() {
     }
   }, [menuOpen])
 
+  useEffect(() => {
+    if (menuOpen) {
+      menuCloseRef.current?.focus()
+      return
+    }
+
+    if (menuTriggerRef.current && document.activeElement?.closest(`#${MENU_ID}`)) {
+      menuTriggerRef.current.focus()
+    }
+  }, [menuOpen])
+
   const headerDark = scrolled && !menuOpen
   const inkTone = headerDark ? 'text-ink' : 'text-offwhite'
+
+  function closeMenu() {
+    setMenuOpen(false)
+  }
 
   return (
     <div className="relative">
@@ -56,14 +79,16 @@ export function Hero() {
       <div
         className={`relative z-50 flex h-9 items-center justify-center px-4 transition-colors duration-500 ${
           headerDark
-            ? 'bg-offwhite text-ink/70'
-            : 'bg-transparent text-offwhite/80'
+            ? 'bg-offwhite text-ink/75'
+            : 'bg-transparent text-offwhite/85'
         }`}
       >
-        <p className="text-[10px] font-medium tracking-[0.22em] uppercase text-center">
+        <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-center">
           {'Бесплатная доставка по\u00A0России'}
           <span className="mx-2 opacity-50">·</span>
-          {'Запись к\u00A0оптометристу онлайн'}
+          <a href="#eye-exam" className="transition-opacity hover:opacity-80">
+            {'Запись к\u00A0оптометристу онлайн'}
+          </a>
         </p>
       </div>
 
@@ -75,14 +100,15 @@ export function Hero() {
             : 'bg-transparent'
         }`}
       >
-        {/* spacer to sit below the utility bar */}
         <div className="h-9" />
         <div className="mx-auto grid h-20 max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-6 md:h-24 md:px-12 lg:px-20">
-          {/* Left: menu trigger */}
           <div className={`flex items-center justify-start transition-colors duration-500 ${inkTone}`}>
             <button
+              ref={menuTriggerRef}
+              type="button"
               aria-label="Открыть меню"
               aria-expanded={menuOpen}
+              aria-controls={MENU_ID}
               className="group flex items-center gap-3 transition-opacity hover:opacity-60"
               onClick={() => setMenuOpen(true)}
             >
@@ -91,13 +117,12 @@ export function Hero() {
                 <span className="h-px w-full bg-current" />
                 <span className="h-px w-full bg-current transition-all duration-300 group-hover:w-1/2" />
               </span>
-              <span className="hidden text-[11px] font-medium uppercase tracking-[0.18em] sm:inline">
+              <span className="hidden text-[11px] font-medium uppercase tracking-[0.16em] sm:inline">
                 Меню
               </span>
             </button>
           </div>
 
-          {/* Center: logo */}
           <a
             href="#"
             className={`justify-self-center px-6 sm:px-10 lg:px-16 xl:px-24 transition-colors duration-500 ${inkTone}`}
@@ -106,18 +131,17 @@ export function Hero() {
             <RefacedLogo />
           </a>
 
-          {/* Right: icons */}
           <div className={`flex items-center justify-end gap-5 transition-colors duration-500 ${inkTone}`}>
-            <button aria-label="Поиск" className="hidden sm:block transition-opacity hover:opacity-60">
+            <button type="button" aria-label="Поиск" className="hidden sm:block transition-opacity hover:opacity-60">
               <Search className="h-[18px] w-[18px]" strokeWidth={1.4} />
             </button>
-            <button aria-label="Избранное" className="hidden sm:block transition-opacity hover:opacity-60">
+            <button type="button" aria-label="Избранное" className="hidden sm:block transition-opacity hover:opacity-60">
               <Heart className="h-[18px] w-[18px]" strokeWidth={1.4} />
             </button>
-            <button aria-label="Корзина" className="transition-opacity hover:opacity-60">
+            <button type="button" aria-label="Корзина" className="transition-opacity hover:opacity-60">
               <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={1.4} />
             </button>
-            <button aria-label="Личный кабинет" className="hidden sm:block transition-opacity hover:opacity-60">
+            <button type="button" aria-label="Личный кабинет" className="hidden sm:block transition-opacity hover:opacity-60">
               <User className="h-[18px] w-[18px]" strokeWidth={1.4} />
             </button>
           </div>
@@ -131,14 +155,14 @@ export function Hero() {
         }`}
         aria-hidden={!menuOpen}
       >
-        {/* dim backdrop */}
         <div
           className="absolute inset-0 bg-ink/50"
-          onClick={() => setMenuOpen(false)}
+          onClick={closeMenu}
+          aria-hidden="true"
         />
 
-        {/* panel */}
         <div
+          id={MENU_ID}
           role="dialog"
           aria-modal="true"
           aria-label="Главное меню"
@@ -146,56 +170,57 @@ export function Hero() {
             menuOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
-          {/* close */}
           <div className="px-8 pt-8 md:px-10 md:pt-10">
             <button
+              ref={menuCloseRef}
+              type="button"
               aria-label="Закрыть меню"
               className="transition-opacity hover:opacity-60"
-              onClick={() => setMenuOpen(false)}
+              onClick={closeMenu}
             >
               <X className="h-6 w-6" strokeWidth={1.2} />
             </button>
           </div>
 
-          {/* primary nav */}
-          <nav className="flex flex-1 flex-col justify-center gap-1 px-8 md:px-10">
-            {NAV.map((item) => (
+          <nav className="flex flex-1 flex-col justify-center gap-1 px-8 md:px-10" aria-label="Основная навигация">
+            {NAV_LINKS.map((item) => (
               <a
-                key={item}
-                href="#"
-                onClick={() => setMenuOpen(false)}
+                key={item.label}
+                href={item.href}
+                onClick={closeMenu}
                 className="py-2.5 font-light leading-tight text-offwhite/90 transition-colors duration-300 hover:text-offwhite [font-size:clamp(1.75rem,3.4vw,2.4rem)]"
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </nav>
 
-          {/* panel footer */}
           <div className="px-8 pb-10 md:px-10">
             <div className="flex flex-col gap-3">
-              {['Доставка и оплата', 'Возврат', 'Контакты', 'Партнёрам'].map(
-                (link) => (
-                  <a
-                    key={link}
-                    href="#"
-                    onClick={() => setMenuOpen(false)}
-                    className="text-[11px] font-medium uppercase tracking-[0.18em] text-offwhite/45 transition-colors hover:text-offwhite/80"
-                  >
-                    {link}
-                  </a>
-                ),
-              )}
+              {[
+                { label: 'Доставка и оплата', href: '#catalog' },
+                { label: 'Возврат', href: '#catalog' },
+                { label: 'Контакты', href: '#stores' },
+                { label: 'Партнёрам', href: '#stores' },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={closeMenu}
+                  className="text-[11px] font-medium uppercase tracking-[0.16em] text-offwhite/55 transition-colors hover:text-offwhite/85"
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
             <div className="mt-8 flex items-center gap-6">
               {['Telegram', 'Instagram', 'VK'].map((social) => (
-                <a
+                <span
                   key={social}
-                  href="#"
-                  className="text-[11px] font-medium uppercase tracking-[0.18em] text-offwhite/45 transition-colors hover:text-offwhite/80"
+                  className="text-[11px] font-medium uppercase tracking-[0.16em] text-offwhite/55"
                 >
                   {social}
-                </a>
+                </span>
               ))}
             </div>
           </div>
@@ -204,7 +229,6 @@ export function Hero() {
 
       {/* ── Hero ──────────────────────────────────── */}
       <section className="relative -mt-9 h-[100svh] w-full overflow-hidden bg-ink">
-        {/* Photo with slow Ken Burns zoom */}
         <img
           src={HERO_IMG || assetPath('/placeholder.svg')}
           alt="Витрина бутика Refaced: японский доспех среди оправ на фоне фасадов Санкт-Петербурга"
@@ -213,39 +237,34 @@ export function Hero() {
           fetchPriority="high"
           className="absolute inset-0 h-full w-full origin-center object-cover object-[center_30%] grayscale animate-kenburns"
         />
-        {/* Top scrim to keep the header and utility bar legible */}
         <div
-          className="absolute inset-x-0 top-0 h-56"
+          className="absolute inset-x-0 top-0 h-48"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(18,17,14,0.62) 0%, rgba(18,17,14,0.32) 45%, rgba(18,17,14,0) 100%)',
+              'linear-gradient(to bottom, rgba(18,17,14,0.45) 0%, rgba(18,17,14,0.18) 50%, rgba(18,17,14,0) 100%)',
           }}
         />
-        {/* Bottom scrim for legibility */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to top, rgba(18,17,14,0.85) 0%, rgba(18,17,14,0.45) 34%, rgba(18,17,14,0.12) 60%, rgba(18,17,14,0) 80%)',
+              'linear-gradient(to top, rgba(18,17,14,0.62) 0%, rgba(18,17,14,0.28) 30%, rgba(18,17,14,0.08) 58%, rgba(18,17,14,0) 78%)',
           }}
         />
-        {/* Lower-left wash to anchor the editorial text */}
         <div
           className="absolute inset-0 hidden md:block"
           style={{
             background:
-              'radial-gradient(120% 95% at 0% 100%, rgba(18,17,14,0.7) 0%, rgba(18,17,14,0.3) 40%, rgba(18,17,14,0) 66%)',
+              'radial-gradient(110% 90% at 0% 100%, rgba(18,17,14,0.5) 0%, rgba(18,17,14,0.18) 42%, rgba(18,17,14,0) 64%)',
           }}
         />
-        {/* Subtle film grain over the photograph */}
         <div className="film-grain absolute inset-0" aria-hidden="true" />
 
-        {/* Text block — lower-left third */}
         <div className="absolute inset-x-0 bottom-0">
-          <div className="mx-auto max-w-[1600px] px-6 pb-28 md:px-12 md:pb-24 lg:px-20">
+          <div className="mx-auto max-w-[1600px] px-6 pb-32 md:px-12 md:pb-28 lg:px-20">
             <div className="max-w-xl">
               <p
-                className="animate-rise text-[11px] font-medium uppercase tracking-[0.3em] text-offwhite/85"
+                className="animate-rise text-[11px] font-medium uppercase tracking-[0.24em] text-offwhite/90"
                 style={{ animationDelay: '0.1s' }}
               >
                 Редкие нишевые бренды оптики
@@ -277,7 +296,7 @@ export function Hero() {
               </h1>
 
               <p
-                className="animate-rise mt-6 max-w-md text-pretty text-sm font-normal leading-relaxed text-offwhite/85 md:text-base"
+                className="animate-rise mt-6 max-w-md text-pretty text-sm font-normal leading-relaxed text-offwhite/90 md:text-base"
                 style={{ animationDelay: '0.4s' }}
               >
                 {
@@ -286,27 +305,30 @@ export function Hero() {
               </p>
 
               <div
-                className="animate-rise mt-9 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-10"
+                className="animate-rise mt-9 flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:gap-10"
                 style={{ animationDelay: '0.55s' }}
               >
-                <Magnetic>
-                  <a
-                    href="#"
-                    className="group inline-flex flex-col text-sm font-medium uppercase tracking-[0.18em] text-offwhite"
-                  >
-                    Смотреть коллекцию
-                    <span className="relative mt-1.5 h-px w-full overflow-hidden bg-offwhite/40">
-                      <span className="absolute inset-0 -translate-x-full bg-taupe transition-transform duration-500 ease-out group-hover:translate-x-0" />
-                    </span>
-                  </a>
-                </Magnetic>
                 <a
-                  href="#"
-                  className="group inline-flex items-center gap-2 text-sm font-normal text-offwhite/85 transition-colors hover:text-offwhite"
+                  href="#catalog"
+                  className="group inline-flex flex-col text-sm font-medium uppercase tracking-[0.16em] text-offwhite"
                 >
-                  {'Записаться на\u00A0проверку зрения'}
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
+                  Смотреть коллекцию
+                  <span className="relative mt-1.5 h-px w-full overflow-hidden bg-offwhite/40">
+                    <span className="absolute inset-0 -translate-x-full bg-taupe transition-transform duration-500 ease-out group-hover:translate-x-0" />
+                  </span>
+                </a>
+                <a
+                  href="#eye-exam"
+                  className="group inline-flex flex-col text-sm font-normal text-offwhite/90 transition-colors hover:text-offwhite"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    {'Записаться на\u00A0проверку зрения'}
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </span>
+                  <span className="relative mt-1.5 h-px w-full overflow-hidden bg-offwhite/25">
+                    <span className="absolute inset-0 -translate-x-full bg-taupe/80 transition-transform duration-500 ease-out group-hover:translate-x-0" />
                   </span>
                 </a>
               </div>
@@ -314,17 +336,16 @@ export function Hero() {
           </div>
         </div>
 
-        {/* ── Brand marquee ──────────────────────── */}
-        <div className="group absolute inset-x-0 bottom-0 overflow-hidden border-t border-offwhite/15 bg-ink/20 backdrop-blur-[2px]">
+        <div className="group absolute inset-x-0 bottom-0 overflow-hidden border-t border-offwhite/15 bg-ink/15 backdrop-blur-[1px]">
           <div className="flex w-max animate-marquee py-3.5 group-hover:[animation-play-state:paused]">
             {[...BRANDS, ...BRANDS].map((brand, i) => (
               <a
                 key={`${brand}-${i}`}
-                href="#"
-                className="flex items-center whitespace-nowrap px-7 text-[10px] font-medium uppercase tracking-[0.28em] text-offwhite/70 transition-colors hover:text-offwhite"
+                href="#brands"
+                className="flex items-center whitespace-nowrap px-7 text-[10px] font-medium uppercase tracking-[0.22em] text-offwhite/75 transition-colors hover:text-offwhite"
               >
                 {brand}
-                <span className="ml-7 text-offwhite/30">·</span>
+                <span className="ml-7 text-offwhite/35">·</span>
               </a>
             ))}
           </div>
