@@ -22,6 +22,7 @@ const BRANDS = [
 ]
 
 const HERO_IMG = assetPath('/hero-samurai.jpg')
+const HERO_IMG_WIDE = assetPath('/hero-samurai-wide.jpg')
 
 export function Hero() {
   const [scrolled, setScrolled] = useState(false)
@@ -205,12 +206,15 @@ export function Hero() {
       {/* ── Hero ──────────────────────────────────── */}
       <section className="relative -mt-9 h-[100svh] w-full overflow-hidden bg-ink">
         {/* Photo with slow Ken Burns zoom */}
-        <img
-          src={HERO_IMG || assetPath('/placeholder.svg')}
-          alt="Витрина бутика Refaced: японский доспех среди оправ на фоне фасадов Санкт-Петербурга"
-          className="absolute inset-0 h-full w-full origin-center object-cover object-[center_30%] grayscale animate-kenburns"
-          crossOrigin="anonymous"
-        />
+        <picture className="absolute inset-0 block h-full w-full">
+          <source media="(min-width: 768px)" srcSet={HERO_IMG_WIDE} />
+          <img
+            src={HERO_IMG || assetPath('/placeholder.svg')}
+            alt="Витрина бутика Refaced: японский доспех среди оправ на фоне фасадов Санкт-Петербурга"
+            className="h-full w-full origin-center object-cover object-center grayscale animate-kenburns"
+            crossOrigin="anonymous"
+          />
+        </picture>
         {/* Top scrim to keep the header and utility bar legible */}
         <div
           className="absolute inset-x-0 top-0 h-56"
