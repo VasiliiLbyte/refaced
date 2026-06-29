@@ -42,10 +42,25 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: assetPath('/icon.svg'), type: 'image/svg+xml' },
-      { url: assetPath('/icon-light-32x32.png'), sizes: '32x32', type: 'image/png' },
+      { url: assetPath('/favicon.ico'), sizes: 'any' },
+      { url: assetPath('/favicon.svg'), type: 'image/svg+xml' },
+      { url: assetPath('/favicon-16x16.png'), sizes: '16x16', type: 'image/png' },
+      { url: assetPath('/favicon-32x32.png'), sizes: '32x32', type: 'image/png' },
+      { url: assetPath('/favicon-48x48.png'), sizes: '48x48', type: 'image/png' },
+      { url: assetPath('/favicon-192x192.png'), sizes: '192x192', type: 'image/png' },
     ],
-    apple: assetPath('/apple-icon.png'),
+    apple: [
+      { url: assetPath('/apple-touch-icon.png'), sizes: '180x180' },
+      { url: assetPath('/apple-touch-icon-152x152.png'), sizes: '152x152' },
+      { url: assetPath('/apple-touch-icon-167x167.png'), sizes: '167x167' },
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: assetPath('/safari-pinned-tab.svg'),
+        color: '#000000',
+      },
+    ],
   },
 }
 

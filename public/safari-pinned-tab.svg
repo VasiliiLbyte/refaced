@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>REFACED</title>
+  <!-- Square frame (outer outline) -->
+  <path d="M 2 2 H 98 V 98 H 2 Z M 8 8 V 92 H 92 V 8 Z" fill="black"/>
+  <!-- Glasses shape: top bar + two trapezoidal lenses connected by a nose bridge -->
+  <path d="M 11 36 H 89 V 42 L 84 64 H 56 L 50 47 L 44 64 H 16 L 11 42 Z
+           M 17 42 L 21 58 H 41 L 47 48 V 42 Z
+           M 53 42 V 48 L 59 58 H 79 L 83 42 Z" fill="black" fill-rule="evenodd"/>
+</svg>
